@@ -57,10 +57,10 @@ def users():
 
 
 
-@app.route("/users/create", methods=["POST"])
+@app.route("/users/create", methods=["POST"]) #POST makes requests to a server, in this case flask
 def create_user():
     print("CREATING A NEW USER...")
-    print("FORM DATA:", dict(request.form))
+    print("FORM DATA:", dict(request.form)) #request (Flask function)
     # todo: create a new user
     #return jsonify({"message": "CREATED OK (TODO)"})
     if "name" in request.form:
@@ -108,15 +108,14 @@ def tweet():
 
     return jsonify(tweets_response)
 
-
 @app.route("/tweets/create", methods=["POST"])
 def create_tweet():
     print("CREATING A NEW TWEET...")
     print("FORM DATA:", dict(request.form))
-    if "name" in request.form:
+    if "tweet" in request.form:
         tweet = request.form["tweet"]
         print(tweet)
-        db.session.add(Tweet(tweet=tweet))
+        db.session.add(Tweet(status=tweet))
         db.session.commit()
         return jsonify({"message": "CREATED OK", "tweet": tweet})
     else:
